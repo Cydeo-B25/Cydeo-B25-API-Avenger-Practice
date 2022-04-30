@@ -4,6 +4,7 @@ import io.restassured.*;
 import io.restassured.http.*;
 import io.restassured.path.json.*;
 import io.restassured.response.*;
+import org.apache.commons.lang3.builder.*;
 import org.junit.jupiter.api.*;
 
 public class Day1 {
@@ -88,9 +89,9 @@ public class Day1 {
                 .when().get(url_spartans + "/{id}");
 
         // first way
-//        System.out.println(response.path("name").toString());
-//        System.out.println(response.path("gender").toString());
-//        System.out.println(response.path("phone").toString());
+        System.out.println(response.path("name").toString());
+        System.out.println(response.path("gender").toString());
+        System.out.println(response.path("phone").toString());
 
         // sencon way using jsonpath
 
@@ -106,6 +107,20 @@ public class Day1 {
         System.out.println(phone);
 
 
+    }
+
+    @Test
+    public void test7(){
+        Response response = RestAssured.given().accept(ContentType.JSON)
+                .when().get(url_spartans);
+
+        String name10 = response.path("name[9]");
+        String gender20 = response.path("gender[19]");
+        int id30 = response.path("id[29]");
+
+        System.out.println(name10);
+        System.out.println(gender20);
+        System.out.println(id30);
     }
 
 
