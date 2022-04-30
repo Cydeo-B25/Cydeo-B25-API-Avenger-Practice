@@ -2,6 +2,7 @@ package day1;
 
 import io.restassured.*;
 import io.restassured.http.*;
+import io.restassured.path.json.*;
 import io.restassured.response.*;
 import org.junit.jupiter.api.*;
 
@@ -50,6 +51,60 @@ public class Day1 {
                 .when().pathParams("id", 7)
                 .when().get(url_spartans + "/{id}");
         response1.prettyPrint();
+
+    }
+
+    @Test
+    public void test3(){
+        Response response = RestAssured.given().accept(ContentType.JSON)
+                .when().queryParam("nameContains", "Allen")
+                .when().get(url_spartans + "/search");
+
+        response.prettyPrint();
+    }
+
+    @Test
+    public void test4(){
+        Response response = RestAssured.given().accept(ContentType.JSON)
+                .when().queryParam("gender", "Male")
+                .when().get(url_spartans + "/search");
+        response.prettyPrint();
+    }
+
+    @Test
+    public void test5(){
+        Response response = RestAssured.given().accept(ContentType.JSON)
+                .when().queryParam("gender", "Female")
+                .when().queryParam("nameContains","z")
+                .when().get(url_spartans + "/search");
+
+        response.prettyPrint();
+    }
+
+    @Test
+    public void test6(){
+        Response response = RestAssured.given().accept(ContentType.JSON)
+                .when().pathParams("id", 15)
+                .when().get(url_spartans + "/{id}");
+
+        // first way
+//        System.out.println(response.path("name").toString());
+//        System.out.println(response.path("gender").toString());
+//        System.out.println(response.path("phone").toString());
+
+        // sencon way using jsonpath
+
+        JsonPath jsonPath = response.jsonPath();
+        byte id = jsonPath.getByte("id");
+        String name = jsonPath.getString("name");
+        String gender = jsonPath.getString("gender");
+        Long phone = jsonPath.getLong("phone");
+
+        System.out.println(id);
+        System.out.println(name);
+        System.out.println(gender);
+        System.out.println(phone);
+
 
     }
 
