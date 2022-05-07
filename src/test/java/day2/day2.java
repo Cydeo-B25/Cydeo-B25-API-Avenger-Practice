@@ -107,6 +107,20 @@ public class day2 {
 
     }
 
+    /*
+     6. get me all spartans and verify below informations:(using hemcrast )
+        status code : 200
+        Content type: application/Json
+        31. spartans name: "Maressa",
+        52. spartans gender: "Female",
+        78. spartans phone: 1853354209
+     */
+
+    @Test
+    public void test6(){
+
+    }
+
 
 
 
