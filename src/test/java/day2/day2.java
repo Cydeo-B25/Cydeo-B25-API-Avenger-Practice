@@ -9,6 +9,8 @@ import org.junit.jupiter.api.*;
 
 import java.util.*;
 
+import static org.hamcrest.Matchers.is;
+
 public class day2 {
 
     @BeforeEach
@@ -75,6 +77,37 @@ public class day2 {
     }
 
     //     4. get all spartans and verify status code 200 (using hemcrast )
+    @Test
+    public void test4(){
+        RestAssured.given().accept(ContentType.JSON)
+                .when().get("api/spartans")
+                .then().statusCode(200);
+
+    }
+
+    /*
+    5. get me spartans whose id is 20 and verify the below informations:(using hemcrast )
+        status code : 200
+        Content type: application/Json
+        "id": 20,
+        "name": "Lothario",
+        "gender": "Male",
+        "phone": 7551551687
+     */
+
+    @Test
+    public void test5() {
+        RestAssured.given().accept(ContentType.JSON)
+                .when().pathParams("id",20)
+                .when().get("/api/spartans/{id}")
+                .then().statusCode(200)
+                .and().contentType("application/Json")
+                .and().assertThat()
+                .body("id",is(20),"name",is("Lothario"),"gender",is("Male"),"phone",is(7551551687l));
+
+    }
+
+
 
 
 
