@@ -178,8 +178,17 @@ public class day2 {
 
     @Test
     public void test10(){
+        Response response = RestAssured.given().accept(ContentType.JSON)
+                .when().pathParams("id",25)
+                .when().get("/api/spartans/{id}");
+
+        Spartan spartan25 = response.as(Spartan.class);
+        System.out.println(spartan25.getGender());
+        System.out.println(spartan25.toString());
 
     }
+
+    //     11. repeat above task using jsonpath method.
 
 
 
