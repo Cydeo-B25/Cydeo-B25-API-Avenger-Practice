@@ -141,6 +141,46 @@ public class day2 {
 
     }
 
+    /*
+    8. get me spartan whose id is 60 and put it to a map, verify below information:
+        "id": 60,
+        "name": "Elisabeth",
+        "gender": "Female",
+        "phone": 8165224005
+     */
+
+    @Test
+    public void test8(){
+        Response response = RestAssured.given().accept(ContentType.JSON)
+                .when().pathParams("id",60)
+                .when().get("/api/spartans/{id}");
+
+        Map<String, Object> spartan = response.as(Map.class);
+
+        Assertions.assertEquals(60, spartan.get("id"));
+        Assertions.assertEquals("Elisabeth", spartan.get("name"));
+        Assertions.assertEquals("Female", spartan.get("gender"));
+        Assertions.assertEquals(8165224005l, spartan.get("phone"));
+
+    }
+
+    //9. get all the spartans into a list and print the names
+    @Test
+    public void test9(){
+        Response response = RestAssured.given().accept(ContentType.JSON)
+                .when().get("/api/spartans");
+
+        List<String> names = response.path("name");
+        System.out.println(names);
+    }
+
+    //     10. create a spartan class, put #25 spartan to that class, then get me gender, and print all the information of him.
+
+    @Test
+    public void test10(){
+
+    }
+
 
 
 
