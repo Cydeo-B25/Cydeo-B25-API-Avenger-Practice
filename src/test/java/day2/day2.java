@@ -188,7 +188,25 @@ public class day2 {
 
     }
 
-    //     11. repeat above task using jsonpath method.
+    //11. repeat above task using jsonpath method.
+    @Test
+    public void test11(){
+        Response response = RestAssured.given().accept(ContentType.JSON)
+                .when().pathParams("id",25)
+                .when().get("/api/spartans/{id}");
+
+        JsonPath jsonPath = response.jsonPath();
+        Spartan spartan25 = jsonPath.getObject("",Spartan.class);
+        System.out.println(spartan25.getGender());
+        System.out.println(spartan25.toString());
+    }
+
+    //     12. find out all spartans whose name has y and put them into a search class(which is created by you).
+    //     then print out all those spartans informations.
+    @Test
+    public void test12(){
+
+    }
 
 
 
