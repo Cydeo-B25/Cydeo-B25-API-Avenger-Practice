@@ -119,6 +119,26 @@ public class day2 {
     @Test
     public void test6(){
 
+        RestAssured.given().accept(ContentType.JSON)
+                .when().get("api/spartans")
+                .then().statusCode(200)
+                .and().contentType("application/Json")
+                .and().assertThat()
+                .body("name[30]",is("Maressa"),"gender[51]",is("Male"),"phone[77]",is(1853354209));
+
+    }
+
+    // 7. get all Female spartans and put the response into a map
+    @Test
+    public void test7(){
+
+        Response response = RestAssured.given().accept(ContentType.JSON)
+                .when().queryParam("gender","Female")
+                .when().get("/api/spartans/search");
+
+        Map<String, Object> femaleSpartans = response.as(Map.class);
+        System.out.println(femaleSpartans);
+
     }
 
 
