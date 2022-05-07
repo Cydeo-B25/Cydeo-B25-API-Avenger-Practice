@@ -47,7 +47,35 @@ public class day2 {
         System.out.println(name);
         System.out.println(gender);
 
+        List<String> names = jsonPath.getList("name");
+        List<String> genders = jsonPath.getList("gender");
+
+        System.out.println(names.get(4));
+        System.out.println(genders.get(18));
+
     }
+
+    //    3. find out all male spartans whose name has g and get me second one's name and last one's phone using jsonPath method.
+    @Test
+    public void test3(){
+        Response response = RestAssured.given().accept(ContentType.JSON)
+                .when().queryParam("gender","Male")
+                .when().queryParam("nameContains",'g')
+                .when().get("/api/spartans/search");
+
+        response.prettyPrint();
+
+        JsonPath jsonPath = response.jsonPath();
+        String name = jsonPath.get("content[1].name");
+        Long phone = jsonPath.get("content[-1].phone");
+
+        System.out.println(name);
+        System.out.println(phone);
+
+    }
+
+    //     4. get all spartans and verify status code 200 (using hemcrast )
+
 
 
 }
