@@ -205,7 +205,16 @@ public class day2 {
     //     then print out all those spartans informations.
     @Test
     public void test12(){
+        Response response = RestAssured.given().accept(ContentType.JSON)
+                .when().queryParam("nameContains",'y')
+                .when().get("/api/spartans/search");
 
+//        response.prettyPrint();
+        JsonPath jsonPath = response.jsonPath();
+        List<Spartan> spartans = jsonPath.getList("content",Spartan.class);
+        for (Spartan spartan : spartans) {
+            System.out.println(spartan.toString());
+        }
     }
 
 
