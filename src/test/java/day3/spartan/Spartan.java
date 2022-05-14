@@ -90,4 +90,38 @@ public class Spartan {
         System.out.println(response.statusCode());
         response.prettyPrint();
     }
+
+    @Test
+    public void test14(){
+        AddSpartan patchSpartan = new AddSpartan();
+        patchSpartan.setGender("Male");
+        patchSpartan.setName("Ahmet");
+        patchSpartan.setPhone(4567891212l);
+
+        Response response = RestAssured.given().accept(ContentType.JSON).log().all()
+                .and()
+                .contentType(ContentType.JSON)
+                .body(patchSpartan)
+                .when()
+                .pathParams("id",115)
+                .and()
+                .patch("/api/spartans/{id}");
+
+        System.out.println(response.statusCode());
+        response.prettyPrint();
+    }
+
+    @Test
+    public void tes15(){
+        Response response = RestAssured.given().accept(ContentType.JSON).log().all()
+                .and()
+                .contentType(ContentType.JSON)
+                .when()
+                .pathParams("id",115)
+                .and()
+                .delete("/api/spartans/{id}");
+
+        System.out.println(response.statusCode());
+        response.prettyPrint();
+    }
 }
