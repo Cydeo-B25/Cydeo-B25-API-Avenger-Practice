@@ -56,16 +56,7 @@ public class ZipCode {
         System.out.println(resultClass);
     }
 
-    @Test
-    public void test5(){
-        Response response = RestAssured.given().accept(ContentType.JSON)
-                .when().get("http://44.201.135.133:1000/ords/hr/locations");
 
-        response.prettyPrint();
-        JsonPath jsonPath = response.jsonPath();
-        List<String> countryID = jsonPath.getList("items.country_id");
-        System.out.println(countryID);
-    }
 
 
 }
