@@ -51,4 +51,43 @@ public class Spartan {
         response.prettyPrint();
 
     }
+
+    @Test
+    public void test12(){
+
+        AddSpartan newSpartan = new AddSpartan();
+        newSpartan.setGender("Female");
+        newSpartan.setName("Jessica");
+        newSpartan.setPhone(4567891235l);
+
+        Response response = RestAssured.given().accept(ContentType.JSON).log().all()
+                .and()
+                .contentType(ContentType.JSON)
+                .body(newSpartan)
+                .when()
+                .post("/api/spartans");
+
+        response.prettyPrint();
+    }
+
+    @Test
+    public void test13(){
+        AddSpartan putSpartan = new AddSpartan();
+        putSpartan.setGender("Male");
+        putSpartan.setName("Ahmet");
+        putSpartan.setPhone(4567891234l);
+
+
+        Response response = RestAssured.given().accept(ContentType.JSON).log().all()
+                .and()
+                .contentType(ContentType.JSON)
+                .body(putSpartan)
+                .when()
+                .pathParams("id",115)
+                .and()
+                .put("/api/spartans/{id}");
+
+        System.out.println(response.statusCode());
+        response.prettyPrint();
+    }
 }
