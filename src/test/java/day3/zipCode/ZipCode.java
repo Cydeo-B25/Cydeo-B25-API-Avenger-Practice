@@ -35,5 +35,25 @@ public class ZipCode {
         System.out.println(responseClass);
     }
 
+    @Test
+    public void test3(){
+        Response response = RestAssured.given().accept(ContentType.JSON)
+                .when().get("/us/va/fairfax");
+
+        response.prettyPrint();
+        Map<String, Object> responseMap = response.as(Map.class);
+        System.out.println(responseMap);
+    }
+
+    @Test
+    public void test4(){
+        Response response = RestAssured.given().accept(ContentType.JSON)
+                .when().get("/us/va/fairfax");
+
+        response.prettyPrint();
+        PlaceCity resultClass = response.as(PlaceCity.class);
+        System.out.println(resultClass);
+    }
+
 
 }
