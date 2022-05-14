@@ -1,5 +1,6 @@
 package day3.hr;
 
+import com.fasterxml.jackson.annotation.*;
 import io.restassured.*;
 import io.restassured.http.*;
 import io.restassured.path.json.*;
@@ -47,6 +48,27 @@ public class Hr {
 //        response.prettyPrint();
         Items jobs = response.as(Items.class);
         System.out.println(jobs);
+    }
+
+    @Test
+    public void test8(){
+        Response response = RestAssured.given().accept(ContentType.JSON)
+                .when().get("/jobs");
+
+        JsonPath jsonPath = response.jsonPath();
+        ResultJobs items5 = jsonPath.getObject("items[4]",ResultJobs.class);
+        System.out.println(items5);
+    }
+
+    @Test
+    public void test9(){
+        Response response = RestAssured.given().accept(ContentType.JSON)
+                .when().get("/regions");
+
+        response.prettyPrint();
+        JsonPath jsonPath = response.jsonPath();
+        List<String> regions = jsonPath.getList("items.region_name");
+        System.out.println(regions);
     }
 
 }
