@@ -2,6 +2,7 @@ package day3.zipCode;
 
 import io.restassured.*;
 import io.restassured.http.*;
+import io.restassured.path.json.*;
 import io.restassured.response.*;
 import org.junit.jupiter.api.*;
 
@@ -51,8 +52,19 @@ public class ZipCode {
                 .when().get("/us/va/fairfax");
 
         response.prettyPrint();
-        PlaceCity resultClass = response.as(PlaceCity.class);
+        ResultCity resultClass = response.as(ResultCity.class);
         System.out.println(resultClass);
+    }
+
+    @Test
+    public void test5(){
+        Response response = RestAssured.given().accept(ContentType.JSON)
+                .when().get("http://44.201.135.133:1000/ords/hr/locations");
+
+        response.prettyPrint();
+        JsonPath jsonPath = response.jsonPath();
+        List<String> countryID = jsonPath.getList("items.country_id");
+        System.out.println(countryID);
     }
 
 
